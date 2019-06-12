@@ -1,4 +1,4 @@
-# CP-Kafka Helm Chart
+# kafka Helm Chart
 
 This chart bootstraps a cluster of Confluent Kafka
 
@@ -33,7 +33,7 @@ helm install --name my-confluent cp-helm-charts
 ### Install with a existing zookeeper
 
 ```console
-helm install --set zookeeper.enabled=false,zookeeper.url="unhinged-robin-zookeeper-headless:2181" cp-helm-charts/charts/cp-kafka
+helm install --set zookeeper.enabled=false,zookeeper.url="unhinged-robin-zookeeper-headless:2181" cp-helm-charts/charts/kafka
 ```
 
 ### Installed Components
@@ -51,7 +51,7 @@ RESOURCES:
 ==> v1/ConfigMap
 NAME                                   DATA  AGE
 boiling-heron-zookeeper-jmx-configmap  1     5m
-boiling-heron-cp-kafka-jmx-configmap   1     5m
+boiling-heron-kafka-jmx-configmap   1     5m
 
 ==> v1/Service
 NAME                              TYPE       CLUSTER-IP     EXTERNAL-IP  PORT(S)            AGE
@@ -60,13 +60,13 @@ boiling-heron-zookeeper           ClusterIP  10.19.244.17   <none>       2181/TC
 boiling-heron-0-external          NodePort   10.19.240.13   <none>       19092:31090/TCP    5m
 boiling-heron-1-external          NodePort   10.19.243.241  <none>       19092:31091/TCP    5m
 boiling-heron-2-external          NodePort   10.19.248.189  <none>       19092:31092/TCP    5m
-boiling-heron-cp-kafka-headless   ClusterIP  None           <none>       9092/TCP           5m
-boiling-heron-cp-kafka            ClusterIP  10.19.254.252  <none>       9092/TCP           5m
+boiling-heron-kafka-headless   ClusterIP  None           <none>       9092/TCP           5m
+boiling-heron-kafka            ClusterIP  10.19.254.252  <none>       9092/TCP           5m
 
 ==> v1beta1/StatefulSet
 NAME                     DESIRED  CURRENT  AGE
 boiling-heron-zookeeper  3        3        5m
-boiling-heron-cp-kafka   3        3        5m
+boiling-heron-kafka   3        3        5m
 
 ==> v1beta1/PodDisruptionBudget
 NAME                         MIN AVAILABLE  MAX UNAVAILABLE  ALLOWED DISRUPTIONS  AGE
@@ -77,17 +77,17 @@ NAME                       READY  STATUS   RESTARTS  AGE
 boiling-heron-zookeeper-0  2/2    Running  0         5m
 boiling-heron-zookeeper-1  2/2    Running  0         5m
 boiling-heron-zookeeper-2  2/2    Running  0         5m
-boiling-heron-cp-kafka-0   2/2    Running  0         5m
-boiling-heron-cp-kafka-1   2/2    Running  0         5m
-boiling-heron-cp-kafka-2   2/2    Running  0         5m
+boiling-heron-kafka-0   2/2    Running  0         5m
+boiling-heron-kafka-1   2/2    Running  0         5m
+boiling-heron-kafka-2   2/2    Running  0         5m
 ```
 
 There are
 1. A [Confluent Zookeeper Ensemble](https://github.com/confluentinc/cp-helm-charts/tree/master/charts/zookeeper) created by zookeeper chart.
-1. A [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) `boiling-heron-cp-kafka` which contains 3 Kafka [Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/): `boiling-heron-cp-kafka-<0|1|2>`. Each Pod has a container running a Kafka Broker and an optional sidecar JMX Exporter Container.
-1. A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) `boiling-heron-cp-kafka` for clients to connect to Kafka.
-1. A [Headless Service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services) `boiling-heron-cp-kafka-headless` to control the network domain for the Kafka processes.
-1. A group(N = number of brokers) of [NodePort Service](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport) `boiling-heron-cp-kafka-${i}-external` to allow access to Kafka Cluster from outside.
+1. A [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) `boiling-heron-kafka` which contains 3 Kafka [Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/): `boiling-heron-kafka-<0|1|2>`. Each Pod has a container running a Kafka Broker and an optional sidecar JMX Exporter Container.
+1. A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) `boiling-heron-kafka` for clients to connect to Kafka.
+1. A [Headless Service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services) `boiling-heron-kafka-headless` to control the network domain for the Kafka processes.
+1. A group(N = number of brokers) of [NodePort Service](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport) `boiling-heron-kafka-${i}-external` to allow access to Kafka Cluster from outside.
 1. A [ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/) which contains configuration for Prometheus JMX Exporter.
 
 ## Configuration
@@ -97,14 +97,14 @@ You can specify each parameter using the `--set key=value[,key=value]` argument 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-helm install --name my-kafka -f my-values.yaml ./cp-kafka
+helm install --name my-kafka -f my-values.yaml ./kafka
 ```
 
 > **Tip**: A default [values.yaml](values.yaml) is provided
 
 ### Kafka Cluster
 
-The configuration parameters in this section control the resources requested and utilized by the cp-kafka chart.
+The configuration parameters in this section control the resources requested and utilized by the kafka chart.
 
 | Parameter | Description | Default |
 | --------- | ----------- | ------- |
@@ -114,7 +114,7 @@ The configuration parameters in this section control the resources requested and
 
 | Parameter | Description | Default |
 | --------- | ----------- | ------- |
-| `image` | Docker Image of Confluent Kafka. | `confluentinc/cp-kafka` |
+| `image` | Docker Image of Confluent Kafka. | `confluentinc/kafka` |
 | `imageTag` | Docker Image Tag of Confluent Kafka. | `5.2.0` |
 | `imagePullPolicy` | Docker Image Tag of Confluent Kafka. | `IfNotPresent` |
 | `imagePullSecrets` | Secrets to be used for private registries. | see [values.yaml](values.yaml) for details |
@@ -200,7 +200,7 @@ The configuration parameters in this section control the resources requested and
 
 | Parameter | Description | Default |
 | --------- | ----------- | ------- |
-| `zookeeper.enabled` | Whether or not to install zookeeper chart alongside cp-kafka chart | `true` |
+| `zookeeper.enabled` | Whether or not to install zookeeper chart alongside kafka chart | `true` |
 | `zookeeper.persistence.enabled` | Whether to create a PVC. If `false`, an `emptyDir` on the host will be used. | `true` |
 | `zookeeper.persistence.dataDirSize` | Size for Data dir, where ZooKeeper will store the in-memory database snapshots. This will overwrite corresponding value in zookeeper chart's value.yaml | `5Gi` |
 | `zookeeper.persistence.dataLogDirSize` | Size for data log dir, which is a dedicated log device to be used, and helps avoid competition between logging and snapshots. This will overwrite corresponding value in zookeeper chart's value.yaml. | `5Gi` |
