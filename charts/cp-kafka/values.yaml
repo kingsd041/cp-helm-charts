@@ -11,8 +11,8 @@ brokers: 3
 
 ## Image Info
 ## ref: https://hub.docker.com/r/confluentinc/cp-kafka/
-image: confluentinc/cp-kafka
-imageTag: 5.2.0
+image: kingsd/cp-kafka
+imageTag: 3.0.0
 
 ## Specify a imagePullPolicy
 ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -128,15 +128,14 @@ nodeport:
 ## ------------------------------------------------------
 ## Zookeeper
 ## ------------------------------------------------------
-cp-zookeeper:
-  ## If true, install the cp-zookeeper chart alongside cp-kafka
-  ## ref: ../cp-zookeeper
+zookeeper:
+  ## If true, install the ookeeper chart alongside kafka
+  ## ref: ../zookeeper
   enabled: true
-  servers: 3
+  replicas: 3
   persistence:
     enabled: true
-    dataDirSize: 5Gi
-    dataLogDirSize: 5Gi
+    size: 5Gi
 
   ## If the Zookeeper Chart is disabled a URL and port are required to connect
   url: ""

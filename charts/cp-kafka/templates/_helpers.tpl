@@ -35,8 +35,8 @@ Create chart name and version as used by the chart label.
 Create a default fully qualified zookeeper name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "cp-kafka.cp-zookeeper.fullname" -}}
-{{- $name := default "cp-zookeeper" (index .Values "cp-zookeeper" "nameOverride") -}}
+{{- define "cp-kafka.zookeeper.fullname" -}}
+{{- $name := default "participant" (index .Values "zookeeper" "nameOverride") -}}
 {{- printf "%s-%s-headless" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -44,12 +44,12 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 Form the Zookeeper URL. If zookeeper is installed as part of this chart, use k8s service discovery,
 else use user-provided URL
 */}}
-{{- define "cp-kafka.cp-zookeeper.service-name" }}
-{{- if (index .Values "cp-zookeeper" "enabled") -}}
-{{- $clientPort := default 2181 (index .Values "cp-zookeeper" "clientPort") | int -}}
-{{- printf "%s:%d" (include "cp-kafka.cp-zookeeper.fullname" .) $clientPort }}
+{{- define "cp-kafka.zookeeper.service-name" }}
+{{- if (index .Values "zookeeper" "enabled") -}}
+{{- $clientPort := default 2181 (index .Values "zookeeper" "clientPort") | int -}}
+{{- printf "%s:%d" (include "cp-kafka.zookeeper.fullname" .) $clientPort }}
 {{- else -}}
-{{- $zookeeperConnect := printf "%s" (index .Values "cp-zookeeper" "url") }}
+{{- $zookeeperConnect := printf "%s" (index .Values "zookeeper" "url") }}
 {{- $zookeeperConnectOverride := (index .Values "configurationOverrides" "zookeeper.connect") }}
 {{- default $zookeeperConnect $zookeeperConnectOverride }}
 {{- end -}}

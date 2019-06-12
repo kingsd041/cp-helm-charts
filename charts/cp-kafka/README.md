@@ -30,10 +30,10 @@ To install with a specific name, you can do:
 helm install --name my-confluent cp-helm-charts
 ```
 
-### Install with a existing cp-zookeeper
+### Install with a existing zookeeper
 
 ```console
-helm install --set cp-zookeeper.enabled=false,cp-zookeeper.url="unhinged-robin-cp-zookeeper-headless:2181" cp-helm-charts/charts/cp-kafka
+helm install --set zookeeper.enabled=false,zookeeper.url="unhinged-robin-zookeeper-headless:2181" cp-helm-charts/charts/cp-kafka
 ```
 
 ### Installed Components
@@ -83,7 +83,7 @@ boiling-heron-cp-kafka-2   2/2    Running  0         5m
 ```
 
 There are
-1. A [Confluent Zookeeper Ensemble](https://github.com/confluentinc/cp-helm-charts/tree/master/charts/cp-zookeeper) created by cp-zookeeper chart.
+1. A [Confluent Zookeeper Ensemble](https://github.com/confluentinc/cp-helm-charts/tree/master/charts/zookeeper) created by zookeeper chart.
 1. A [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) `boiling-heron-cp-kafka` which contains 3 Kafka [Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/): `boiling-heron-cp-kafka-<0|1|2>`. Each Pod has a container running a Kafka Broker and an optional sidecar JMX Exporter Container.
 1. A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) `boiling-heron-cp-kafka` for clients to connect to Kafka.
 1. A [Headless Service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services) `boiling-heron-cp-kafka-headless` to control the network domain for the Kafka processes.
@@ -200,9 +200,9 @@ The configuration parameters in this section control the resources requested and
 
 | Parameter | Description | Default |
 | --------- | ----------- | ------- |
-| `cp-zookeeper.enabled` | Whether or not to install cp-zookeeper chart alongside cp-kafka chart | `true` |
-| `cp-zookeeper.persistence.enabled` | Whether to create a PVC. If `false`, an `emptyDir` on the host will be used. | `true` |
-| `cp-zookeeper.persistence.dataDirSize` | Size for Data dir, where ZooKeeper will store the in-memory database snapshots. This will overwrite corresponding value in cp-zookeeper chart's value.yaml | `5Gi` |
-| `cp-zookeeper.persistence.dataLogDirSize` | Size for data log dir, which is a dedicated log device to be used, and helps avoid competition between logging and snapshots. This will overwrite corresponding value in cp-zookeeper chart's value.yaml. | `5Gi` |
-| `cp-zookeeper.url` | Service name of Zookeeper cluster (Not needed if zookeeper.enabled is set to true). | `""` |
-| `cp-zookeeper.clientPort` | Port of Zookeeper Cluster | `2181` |
+| `zookeeper.enabled` | Whether or not to install zookeeper chart alongside cp-kafka chart | `true` |
+| `zookeeper.persistence.enabled` | Whether to create a PVC. If `false`, an `emptyDir` on the host will be used. | `true` |
+| `zookeeper.persistence.dataDirSize` | Size for Data dir, where ZooKeeper will store the in-memory database snapshots. This will overwrite corresponding value in zookeeper chart's value.yaml | `5Gi` |
+| `zookeeper.persistence.dataLogDirSize` | Size for data log dir, which is a dedicated log device to be used, and helps avoid competition between logging and snapshots. This will overwrite corresponding value in zookeeper chart's value.yaml. | `5Gi` |
+| `zookeeper.url` | Service name of Zookeeper cluster (Not needed if zookeeper.enabled is set to true). | `""` |
+| `zookeeper.clientPort` | Port of Zookeeper Cluster | `2181` |
