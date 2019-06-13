@@ -1,0 +1,37 @@
+{{- if .Values.prometheus.jmx.enabled }}
+{{- if .Values.service.metrics.enabled }}
+  {{- $fullName := include "kafka.fullname" . }}
+  {{- $brokers := .Values.brokers | int }}
+  {{- $servicePort := .Values.service.metrics.servicePort }}
+  {{- $root := . }}
+  {{- range $i, $e := until $brokers }}
+    {{- $externalListenerPort := add $root.Values.service.metrics.firstListenerPort $i }}
+    {{- $responsiblePod := printf "%s-%d" (printf "%s" $fullName) $i }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $root.Release.Name }}-{{ $i }}-metrics
+  labels:
+    app: {{ include "kafka.name" $root }}
+    chart: {{ template "kafka.chart" $root }}
+    release: {{ $root.Release.Name }}
+    heritage: {{ $root.Release.Service }}
+    pod: {{ $responsiblePod }}
+spec:
+  type: {{ $root.Values.service.metrics.type }}
+  ports:
+    - name: metrics
+      port: {{ $servicePort }}
+      targetPort: {{ $servicePort }}
+      {{- if (eq "NodePort" $root.Values.service.metrics.type) }}
+      nodePort: {{ $externalListenerPort }}
+      {{- end }}
+      protocol: TCP
+  selector:
+    app: {{ include "kafka.name" $root }}
+    release: {{ $root.Release.Name }}
+    statefulset.kubernetes.io/pod-name: {{ $responsiblePod | quote }}
+  {{- end }}
+{{- end }}
+{{- end }}

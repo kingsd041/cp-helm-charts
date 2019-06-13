@@ -139,3 +139,10 @@ zookeeper:
 
   ## If the Zookeeper Chart is disabled a URL and port are required to connect
   url: ""
+
+service:
+  metrics:
+    enabled: true
+    type: NodePort  # ClusterIP/NodePort/LoadBalancer
+    servicePort: 5556
+    firstListenerPort: 32090
