@@ -1,10 +1,10 @@
-{{- if .Values.nodeport.enabled }}
+{{- if .Values.service.nodeport.enabled }}
   {{- $fullName := include "kafka.fullname" . }}
   {{- $brokers := .Values.brokers | int }}
-  {{- $servicePort := .Values.nodeport.servicePort }}
+  {{- $servicePort := .Values.service.nodeport.servicePort }}
   {{- $root := . }}
   {{- range $i, $e := until $brokers }}
-    {{- $externalListenerPort := add $root.Values.nodeport.firstListenerPort $i }}
+    {{- $externalListenerPort := add $root.Values.service.nodeport.firstListenerPort $i }}
     {{- $responsiblePod := printf "%s-%d" (printf "%s" $fullName) $i }}
 ---
 apiVersion: v1

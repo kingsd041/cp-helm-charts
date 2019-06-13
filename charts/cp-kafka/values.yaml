@@ -120,10 +120,16 @@ prometheus:
     ## See the `resources` documentation above for details.
     resources: {}
 
-nodeport:
-  enabled: false
-  servicePort: 9092
-  firstListenerPort: 31090
+service:
+  metrics:
+    enabled: true
+    type: NodePort  # ClusterIP/NodePort/LoadBalancer
+    servicePort: 5556
+    firstListenerPort: 32090
+  nodeport:
+    enabled: false
+    servicePort: 9092
+    firstListenerPort: 31090
 
 ## ------------------------------------------------------
 ## Zookeeper
@@ -139,10 +145,3 @@ zookeeper:
 
   ## If the Zookeeper Chart is disabled a URL and port are required to connect
   url: ""
-
-service:
-  metrics:
-    enabled: true
-    type: NodePort  # ClusterIP/NodePort/LoadBalancer
-    servicePort: 5556
-    firstListenerPort: 32090
