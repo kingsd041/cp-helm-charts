@@ -131,6 +131,7 @@ spec:
         {{- range $k, $e := until $disksPerBroker }}
         - name: datadir-{{$k}}
           mountPath: /opt/kafka/data-{{$k}}
+          subPath: data
         {{- end }}
       {{- if .Values.imagePullSecrets }}
       imagePullSecrets:
