@@ -1,7 +1,3 @@
-# Default values for kafka.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
 ## ------------------------------------------------------
 ## Kafka
 ## ------------------------------------------------------
@@ -33,24 +29,12 @@ podManagementPolicy: OrderedReady
 updateStrategy: RollingUpdate
 
 ## Kafka Server properties
-## ref: https://kafka.apache.org/documentation/#configuration
+## ref: https://kafka.apache.org/0100/documentation.html#configuration
 configurationOverrides:
   "offsets.topic.replication.factor": "3"
   # "default.replication.factor": 3
   # "min.insync.replicas": 2
   # "auto.create.topics.enable": false
-
-  ## Options required for external access via NodePort
-  ## ref:
-  ## - http://kafka.apache.org/documentation/#security_configbroker
-  ## - https://cwiki.apache.org/confluence/display/KAFKA/KIP-103%3A+Separation+of+Internal+and+External+traffic
-  ##
-  ## Advertised listeners will use the firstListenerPort value as it's default unless overridden here.
-  ## Setting "advertised.listeners" here appends to "PLAINTEXT://${POD_IP}:9092,"
-  # "advertised.listeners": |-
-  # EXTERNAL://${HOST_IP}:$((31090 + ${KAFKA_BROKER_ID}))
-  "listener.security.protocol.map": |-
-   PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
 
 ## Additional env variables
 customEnv: {}
@@ -135,7 +119,7 @@ service:
 ## Zookeeper
 ## ------------------------------------------------------
 zookeeper:
-  ## If true, install the ookeeper chart alongside kafka
+  ## If true, install the zookeeper chart alongside kafka
   ## ref: ../zookeeper
   enabled: true
   replicas: 3

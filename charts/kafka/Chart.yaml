@@ -1,5 +1,15 @@
 apiVersion: v1
 appVersion: "1.0"
-description: A Helm chart for Confluent Kafka on Kubernetes
 name: kafka
 version: 0.1.0
+description: Apache Kafka is a distributed streaming platform.
+keywords:
+- kafka
+- zookeeper
+- streaming
+- producer
+- consumer
+home: https://kafka.apache.org/
+maintainers:
+- name: Rancher Labs Support
+  email: support@rancher.com
