@@ -1,5 +1,0 @@
-/opt/new/cp-helm-charts/charts/kafka/install/java/src/test/java/io/confluent/admin/utils/ClusterWaitTest.java
-/opt/new/cp-helm-charts/charts/kafka/install/java/src/test/java/io/confluent/admin/utils/EmbeddedKafkaCluster.java
-/opt/new/cp-helm-charts/charts/kafka/install/java/src/test/java/io/confluent/admin/utils/EmbeddedZookeeperEnsemble.java
-/opt/new/cp-helm-charts/charts/kafka/install/java/src/test/java/io/confluent/admin/utils/ClusterStatusTest.java
-/opt/new/cp-helm-charts/charts/kafka/install/java/src/test/java/io/confluent/admin/utils/ClusterStatusSASLTest.java
