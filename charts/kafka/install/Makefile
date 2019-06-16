@@ -1,6 +1,7 @@
 VERSION := 3.0.0
 COMPONENTS := base kafka
 REPOSITORY := kingsd
+COMMIT_ID := $(shell git rev-parse --short HEAD)
 
 debian/base/include/etc/confluent/docker/docker-utils.jar:
 	mkdir -p debian/base/include/etc/confluent/docker
