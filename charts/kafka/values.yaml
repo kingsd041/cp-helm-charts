@@ -7,7 +7,7 @@ brokers: 3
 
 ## Image Info
 ## ref: https://hub.docker.com/r/confluentinc/cp-kafka/
-image: kingsd/cp-kafka
+image: kingsd/kafka
 imageTag: 3.0.0
 
 ## Specify a imagePullPolicy

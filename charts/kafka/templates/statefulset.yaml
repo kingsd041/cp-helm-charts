@@ -133,6 +133,10 @@ spec:
           mountPath: /opt/kafka/data-{{$k}}
           subPath: data
         {{- end }}
+      initContainers:
+      - name: init-myservice
+        image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+        command: ['sh', '-c', 'cub zk-ready {{ include "kafka.zookeeper.service-name" . | quote }} "40"']
       {{- if .Values.imagePullSecrets }}
       imagePullSecrets:
 {{ toYaml .Values.imagePullSecrets | indent 8 }}
