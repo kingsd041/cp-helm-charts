@@ -1,0 +1,4 @@
+/opt/install/java/src/main/java/io/confluent/admin/utils/ZookeeperConnectionWatcher.java
+/opt/install/java/src/main/java/io/confluent/admin/utils/Main.java
+/opt/install/java/src/main/java/io/confluent/admin/utils/KafkaMetadataClient.java
+/opt/install/java/src/main/java/io/confluent/admin/utils/ClusterStatus.java

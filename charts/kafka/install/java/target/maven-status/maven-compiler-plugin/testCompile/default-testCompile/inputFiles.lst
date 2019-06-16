@@ -1,0 +1,5 @@
+/opt/install/java/src/test/java/io/confluent/admin/utils/EmbeddedZookeeperEnsemble.java
+/opt/install/java/src/test/java/io/confluent/admin/utils/EmbeddedKafkaCluster.java
+/opt/install/java/src/test/java/io/confluent/admin/utils/ClusterWaitTest.java
+/opt/install/java/src/test/java/io/confluent/admin/utils/ClusterStatusSASLTest.java
+/opt/install/java/src/test/java/io/confluent/admin/utils/ClusterStatusTest.java
